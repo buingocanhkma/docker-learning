@@ -1,0 +1,6 @@
+FROM mysql
+MAINTAINER anhbn3@gmail.com
+
+ENV MYSQL_ROOT_PASSWORD abc13579
+
+EXPOSE 3306
