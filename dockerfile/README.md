@@ -1,5 +1,6 @@
+### Build 2 separate docker image (mysql , php app) and check connection from php app to mysql
 
-#Build image from Dockerfile_mysql
+# 1. Build image from Dockerfile_mysql
 docker build -t mysql:v1 .
 
 #Run image
@@ -8,7 +9,7 @@ docker run --name=mysql-v1 --add-host=mysql.v1:172.31.38.205 --add-host=phpapach
 #Access mysql
 docker exec -it mysql-v1 mysql -u root -P 5678 -p
 
-#Build image from Dockerfile_php
+# 2. Build image from Dockerfile_php
 docker build -t php-apache:8.0 .
 
 #Run image 
