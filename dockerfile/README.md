@@ -3,7 +3,7 @@
 docker build -t mysql:v1 .
 
 #Run image
-docker run --name=mysql-v1 --network=net1 -p 5678:3306 -dt mysql:v1
+docker run --name=mysql-v1 --add-host=mysql.v1:172.31.38.205 --add-host=phpapache.v1:172.31.38.205 -p 5678:3306 -dt mysql:v1
 
 #Access mysql
 docker exec -it mysql-v1 mysql -u root -P 5678 -p
@@ -12,4 +12,4 @@ docker exec -it mysql-v1 mysql -u root -P 5678 -p
 docker build -t php-apache:8.0 .
 
 #Run image 
-docker run --name=php-apache-v1 --network=net1 -p 5556:80 -dt php-apache:8.0
+docker run --name=php-apache-v1 --add-host=phpapache.v1:172.31.38.205 --add-host=mysql.v1:172.31.38.205 -p 5556:80 -dt php-apache:8.0
