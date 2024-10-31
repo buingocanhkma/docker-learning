@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SSH Session</title>
+    <style>
+        body {
+            margin: 0; /* Xóa margin của body */
+            padding: 0; /* Xóa padding của body */
+            height: 100vh; /* Chiều cao của body là 100% chiều cao của cửa sổ */
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Ẩn thanh cuộn */
+            display: flex;
+            flex-direction: column; /* Để bố trí các phần tử theo cột */
+        }
+        h1 {
+            margin: 0; /* Xóa margin của tiêu đề */
+            padding: 10px; /* Thêm padding cho tiêu đề */
+            background-color: #f4f4f4; /* Màu nền cho tiêu đề */
+            border-bottom: 1px solid #ccc; /* Đường viền dưới cho tiêu đề */
+            position: relative; /* Để có thể sử dụng position cho nút */
+        }
+        .back-home {
+            position: absolute; /* Đặt vị trí của nút tương đối với tiêu đề */
+            top: 10px; /* Cách từ trên 10px */
+            left: 10px; /* Cách từ trái 10px */
+            padding: 5px 10px; /* Thêm padding cho nút */
+            background-color: #4CAF50; /* Màu nền cho nút */
+            color: white; /* Màu chữ của nút */
+            text-decoration: none; /* Xóa gạch chân */
+            border-radius: 5px; /* Bo góc cho nút */
+        }
+        .back-home:hover {
+            background-color: #45a049; /* Màu nền cho nút khi hover */
+        }
+        iframe {
+            width: 100%; /* Chiều rộng của iframe là 100% */
+            height: calc(100vh - 50px); /* Chiều cao của iframe chiếm 100% chiều cao trừ chiều cao của tiêu đề */
+            border: none; /* Xóa đường viền của iframe */
+            flex-grow: 1; /* Cho phép iframe mở rộng để chiếm không gian còn lại */
+        }
+        footer {
+            background-color: #f4f4f4; /* Màu nền cho footer */
+            text-align: center; /* Căn giữa nội dung footer */
+            padding: 10px; /* Thêm padding cho footer */
+            border-top: 1px solid #ccc; /* Đường viền trên cho footer */
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        <a href="/" class="back-home">Back to Home</a>
+        SSH Session for {{ session.username }}@{{ session.ip }}
+    </h1>
+    <iframe src="http://3.82.4.117:7688"></iframe>
+    <footer>
+        <p>&copy; 2024 Your Company. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+

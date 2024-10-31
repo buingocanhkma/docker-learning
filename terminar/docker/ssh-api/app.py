@@ -1,37 +1,38 @@
 from flask import Flask, render_template, request, redirect, url_for
+import subprocess
 import os
 
 app = Flask(__name__)
 
-# Route cho trang chính
+# Danh sách các phiên đăng nhập
+sessions = []
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
-# Route để kết nối SSH
 @app.route('/connect', methods=['POST'])
 def connect():
-    username = request.form['username'].strip()  # Loại bỏ khoảng trắng
-    ip = request.form['ip'].strip()  # Loại bỏ khoảng trắng
-    password = request.form['password'].strip()  # Loại bỏ khoảng trắng
+    username = request.form['username']
+    ip = request.form['ip']
+    password = request.form['password']  # Lưu ý: không nên lưu mật khẩu ở đây
 
-    # Kiểm tra xem username, ip và password có rỗng không
-    if not username or not ip or not password:
-        return "Username, IP, and Password cannot be empty!", 400
+    # Tạo phiên đăng nhập
+    session_id = len(sessions) + 1
+    sessions.append({'id': session_id, 'username': username, 'ip': ip})
 
-    # Chuyển hướng đến ttyd với thông tin SSH
-    return redirect(url_for('ttyd', username=username, ip=ip, password=password))
+    # Khởi động ttyd với thông tin phiên
+    command = f"ttyd -p 7688 sshpass -p '{password}' ssh -o StrictHostKeyChecking=no {username}@{ip}"
+    subprocess.Popen(command, shell=True)
 
-# Route cho ttyd
-@app.route('/ttyd/<username>/<ip>/<password>')
-def ttyd(username, ip, password):
-    # Tạo lệnh SSH với sshpass
-    command = f"sshpass -p '{password}' ssh -o StrictHostKeyChecking=no {username}@{ip}"
+    return redirect(url_for('session', session_id=session_id))
 
-    # Khởi động ttyd với lệnh SSH
-    os.system(f"ttyd -p 7688 {command}")
-
-    return render_template('ttyd.html', command=command)
+@app.route('/session/<int:session_id>')
+def session(session_id):
+    session_info = next((s for s in sessions if s['id'] == session_id), None)
+    if session_info:
+        return render_template('session.html', session=session_info)
+    return "Session not found", 404
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
