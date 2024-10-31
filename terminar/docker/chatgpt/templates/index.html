@@ -1,0 +1,39 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker CLI Web Interface</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #333; color: #ddd; }
+        .container { width: 80%; margin: 50px auto; }
+        #output { background-color: #222; padding: 10px; border: 1px solid #555; height: 300px; overflow-y: auto; white-space: pre-wrap; }
+        input, button { font-size: 16px; }
+        input[type="text"] { width: 70%; padding: 8px; margin-top: 10px; }
+        button { padding: 8px 15px; margin-top: 10px; cursor: pointer; }
+    </style>
+    <script>
+        async function runCommand() {
+            const command = document.getElementById("command").value;
+            const response = await fetch("/run", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({ command: command })
+            });
+            const data = await response.json();
+            document.getElementById("output").innerText += `> ${command}\n${data.output || data.error}\n\n`;
+            document.getElementById("command").value = "";
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Docker CLI Web Interface</h1>
+        <input type="text" id="command" placeholder="Enter Docker command" />
+        <button onclick="runCommand()">Run</button>
+        <pre id="output"></pre>
+    </div>
+</body>
+</html>
+
