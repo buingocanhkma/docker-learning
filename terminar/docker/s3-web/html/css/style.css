@@ -1,0 +1,548 @@
+/* Background and Font */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Codetta', sans-serif;
+}
+
+/* Background and Container */
+.background {
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.login-container {
+    background-color: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+/* Logo Text */
+.logo-text {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: rgb(10, 224, 184);
+}
+
+/* Form Labels */
+.input-label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Input Fields */
+.input-container, .password-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* Input Icons */
+.input-icon, .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #999;
+    cursor: pointer;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: rgb(10, 224, 184);
+    border-color: rgb(10, 224, 184);
+    color: white;
+    width: 100%;
+    padding: 15px;
+    border-radius: 30px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.btn-secondary {
+    background-color: white;
+    color: rgb(10, 224, 184);
+    border: 2px solid rgb(10, 224, 184);
+    width: 100%;
+    padding: 15px;
+    border-radius: 30px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+/* reCAPTCHA */
+.recaptcha-container {
+    margin-bottom: 20px;
+}
+
+/* Logo Text Styling */
+.logo-text {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: rgb(10, 224, 184);
+}
+
+/* Subtext under header */
+.subtext {
+    color: #5c5c5c;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* Image Container */
+.image-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.image-container img {
+    max-width: 100px;
+    height: auto;
+}
+
+/* Input Container Styling */
+.input-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* Button Link Style (Back to Login) */
+.btn-link {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: rgb(10, 224, 184);
+    font-weight: bold;
+    text-decoration: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+/* Alert Message Styling */
+.alert {
+    display: flex;
+    align-items: center;
+    background-color: #fff4e5;
+    color: #b25e03;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.alert i {
+    margin-right: 10px;
+}
+
+/* Subtext and Highlighted Email */
+.subtext {
+    color: #5c5c5c;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.email-highlight {
+    color: rgb(10, 224, 184);
+    font-weight: bold;
+}
+
+/* Button Link Styling */
+.btn-primary {
+    background-color: rgb(10, 224, 184);
+    border-color: rgb(10, 224, 184);
+    color: white;
+    width: 100%;
+    padding: 15px;
+    border-radius: 30px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.btn-secondary {
+    background-color: white;
+    color: rgb(10, 224, 184);
+    border: 2px solid rgb(10, 224, 184);
+    width: 100%;
+    padding: 15px;
+    border-radius: 30px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+/* Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f5f7fa;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+/* Navbar Left: Align Buttons Horizontally */
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Khoảng cách giữa các nút */
+}
+
+/* Service Buttons */
+.btn-service {
+    display: flex;
+    align-items: center;
+    background-color: #057560;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-service i {
+    margin-right: 5px;
+}
+
+.btn-service:hover {
+    background-color: #d41a24;
+}
+
+/* Center Section: Search Input */
+.search-container {
+    position: relative;
+    width: 400px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    background-color: #f0f2f5;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+/* Right Section: Icons and Language Selector */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.language-selector {
+    display: flex;
+    align-items: center;
+    background-color: #f0f2f5;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.language-selector img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.language-selector span {
+    font-size: 14px;
+}
+
+.navbar-right i {
+    font-size: 18px;
+    color: #6c757d;
+    cursor: pointer;
+}
+
+.username {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Content Styling */
+.content {
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+/* Cards */
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Service Cards */
+.service-card {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.service-card:hover {
+    background-color: #f0f0f0;
+}
+.service-card i{
+    margin-right: 10px;
+    font-size: 20px;
+    color: #057560;
+}
+/* Service Group */
+.service-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.service-group .col-md-4 {
+    padding: 0;
+}
+
+/* Red Icon Style */
+.icon-red {
+    color: #057560;
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+/* User Menu Container */
+.user-menu-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* Hide menu by default */
+.user-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    z-index: 1;
+}
+
+/* User Menu Items */
+.user-menu a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.user-menu a:hover {
+    background-color: #f0f0f0;
+}
+
+#logoutButton {
+    color: #057560;
+}
+/* Service Menu Styling */
+.service-menu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    min-width: 250px;
+    z-index: 1;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.service-menu a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.3s;
+}
+
+.service-menu a:hover {
+    background-color: #f5f5f5;
+}
+
+.service-menu a i {
+    color: #057560;
+}
+
+/* Adjust button to have better spacing */
+.btn-service {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    background-color: #057560;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-service i {
+    margin-right: 5px;
+}
+
+.btn-service:hover {
+    background-color: #d41a24;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #0F2B26;
+    color: white;
+}
+
+/* Modal Background */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Close Button */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Modal Body Cards */
+.modal-body {
+    display: flex;
+    gap: 15px;
+}
+
+.modal-card {
+    flex: 1;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.modal-card i {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #057560;
+}
+
+.contact-button {
+    background-color: #057560;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.contact-button:hover {
+    background-color: #e04344;
+}
+
+/* Cancel Button */
+.cancel-button {
+    background-color: #ccc;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.btn-block {
+    margin-top: 10px;
+    width: 100%;
+    display: block;
+    font-size: 16px;
+}
+#loginGoogle {
+    background-color: #db4437;
+    color: white;
+}
+#loginZalo {
+    background-color: #0084ff;
+    color: white;
+}

@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SePay Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1em 2em;
+            color: white;
+            height: 70px;
+        }
+
+        .navbar__brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar__menu {
+            list-style: none;
+            display: flex;
+            gap: 1em;
+        }
+
+        .navbar__menu a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar__menu a:hover {
+            background-color: #ffffff;
+            color: #333;
+            border-radius: 5px;
+        }
+
+        /* Dropdown Menu */
+        .menu__item {
+            position: relative;
+        }
+
+        .dropdown {
+            width: 100px;
+            display: none;
+            /* Ẩn dropdown mặc định */
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            top: 170%;
+            /* Đặt vị trí bên dưới menu item */
+            left: 0;
+            border-radius: 5px;
+        }
+
+        .menu__item:hover .dropdown {
+            display: block;
+            /* Hiển thị dropdown khi hover */
+        }
+
+        .dropdown a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown li {
+            list-style-type: none;
+        }
+
+        .dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Account Dropdown */
+        .account-dropdown {
+            position: relative;
+        }
+
+        .account-dropdown__btn {
+            background-color: #28a745;
+            padding: 10px 30px;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .account-dropdown__btn:hover {
+            background-color: #218838;
+        }
+
+        .account-dropdown__menu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+            border-radius: 5px;
+        }
+
+        .account-dropdown__menu li {
+            list-style-type: none;
+        }
+
+        .account-dropdown:hover .account-dropdown__menu {
+            display: block;
+        }
+
+        /* Account Dropdown Menu */
+        .account-dropdown__menu {
+            display: none;
+            /* Ẩn menu mặc định */
+            position: absolute;
+            background-color: #ffffff;
+            /* Màu nền trắng */
+            min-width: 160px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            /* Bóng đổ */
+            z-index: 100;
+            /* Đảm bảo menu hiển thị trên các phần khác */
+            right: 0;
+            /* Đặt menu nằm bên phải của nút */
+            border-radius: 5px;
+            /* Bo góc */
+        }
+
+        /* Hiển thị menu khi hover */
+        .account-dropdown:hover .account-dropdown__menu {
+            display: block;
+        }
+
+        /* Các mục trong menu */
+        .account-dropdown__menu li {
+            list-style: none;
+            /* Bỏ dấu đầu dòng */
+        }
+
+        .account-dropdown__menu a {
+            display: block;
+            /* Chiếm toàn bộ chiều rộng */
+            padding: 10px 15px;
+            /* Khoảng cách bên trong */
+            color: #333;
+            /* Màu chữ */
+            text-decoration: none;
+            /* Bỏ gạch chân */
+            transition: background-color 0.2s;
+            /* Hiệu ứng chuyển đổi màu nền */
+        }
+
+        /* Hiệu ứng hover cho các mục menu */
+        .account-dropdown__menu a:hover {
+            background-color: #f0f0f0;
+            /* Màu nền khi hover */
+        }
+
+        /* Các mục menu cuối cùng */
+        .account-dropdown__menu li:last-child a {
+            border-bottom-left-radius: 5px;
+            /* Bo góc dưới bên trái */
+            border-bottom-right-radius: 5px;
+            /* Bo góc dưới bên phải */
+        }
+
+
+        /* Footer */
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            padding: 1em;
+            background-color: #333;
+            color: white;
+        }
+
+
+        /* Main Content */
+        .dashboard {
+            padding: 2em;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2em;
+        }
+
+        .dashboard .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .dashboard .card h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard .card .value {
+            font-size: 48px;
+            color: #28a745;
+        }
+
+        .dashboard .card .description {
+            font-size: 18px;
+            color: #666;
+        }
+
+        /* Resource Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2em;
+        }
+
+        table th,
+        table td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #28a745;
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            padding: 1em;
+            background-color: #333;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar .menu {
+                flex-direction: column;
+                gap: 0.5em;
+            }
+        }
+        .action-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .action-button:hover {
+            background-color: #45a049;
+        }
+    </style>		
+  </head>
+  <body>
+ 
+    <!-- Thanh Menu -->
+    <nav class="navbar">
+        <div class="navbar__brand">Dashboard</div>
+        <ul class="navbar__menu">
+            <li class="menu__item"><a href="#">Trang chủ</a></li>
+            <li class="menu__item">
+                <a href="#">Dịch Vụ</a>
+                <ul class="dropdown">
+                    <li><a href="../dashboard.html">Dashboard</a></li>
+                    <li><a href="../ManageVM.html">Quản lý VM</a></li>
+                </ul>
+            </li>
+            <li class="menu__item">
+                <a href="#">Nạp tiền</a>
+                <ul class="dropdown">
+                    <li><a href="payment/order.html">Nạp tiền tài khoản</a></li>
+                    <li><a href="#">Lịch sử nạp tiền</a></li>
+                    <li><a href="#">Top giao dịch</a></li>
+                    <li><a href="#">Lịch sử thanh toán</a></li>
+                </ul>
+            </li>
+            <li class="menu__item"><a href="#">Bài viết</a></li>
+            <li class="menu__item"><a href="../policy.html">Chính sách</a></li>
+            <li class="menu__item"><a href="../contact.html">Liên hệ</a></li>
+        </ul>
+
+        <!-- Account Dropdown -->
+        <div class="account-dropdown">
+            <button class="account-dropdown__btn">
+                <span id="usernameDisplay">Tài khoản</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="account-dropdown__menu">
+                <li><a href="#">Thông tin tài khoản</a></li>
+                <li><a href="#">Thiết lập tài khoản</a></li>
+                <li><a href="#" id="logout">Đăng xuất</a></li>
+            </ul>
+        </div>
+    </nav> 
+    <div class="row my-5 px-2">
+        <div class="col-md-8 mx-auto">
+            <h1>Đặt hàng</h1>
+            <form id="orderForm">
+              <div class="mb-3">
+                <label for="amountInput" class="form-label">Số tiền</label>
+                <input type="number" name="total" class="form-control" id="amountInput" aria-describedby="amountInputHelp" value="3000">
+                <div id="amountInputHelp" class="form-text">Điền số tiền</div>
+              </div>
+              <button type="submit" class="btn btn-primary">Đặt hàng</button>
+            </form>
+            
+            <div id="checkoutSection" style="display:none;">
+              <h1><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-check-circle text-success" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+              </svg> Đặt hàng thành công</h1>
+              <span class="text-muted">Mã đơn hàng #DH12345</span>
+              <div id="successPayBox" class="p-2 text-center pt-3 border border-2 mt-5" style="display:none">
+                  <h2 class="text-success"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-check-circle text-success" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                  </svg> Thanh toán thành công</h2>
+                  <p class="text-center text-success">Chúng tôi đã nhận được thanh toán, đơn hàng sẽ được chuyển đến quý khách trong thời gian sớm nhất!</p>
+              </div>
+              <div class="row mt-5 px-2" id="checkoutBox">
+                <div class="col-12 text-center my-2 border"><p class="mt-2">Hướng dẫn thanh toán qua chuyển khoản ngân hàng</p></div>
+                <div class="col-md-6 border text-center p-2">
+                    <p class="fw-bold">Cách 1: Mở app ngân hàng và quét mã QR</p>
+                    <div class="my-2">
+                        <img src="https://qr.sepay.vn/img?bank=MSB&acc=80000528609&template=compact&amount=3000&des=DH12345" class="img-fluid">
+                        <span>Trạng thái: Chờ thanh toán... <div class="spinner-border" role="status"></div></span>
+                    </div>
+                </div>
+                <div class="col-md-6 border p-2">
+                    <p class="fw-bold">Cách 2: Chuyển khoản thủ công theo thông tin</p>
+                    <div class="text-center">
+                      <img src="https://qr.sepay.vn/assets/img/banklogo/MSB.png" class="img-fluid" style="max-height:50px">
+                      <p class="fw-bold">Ngân hàng MSB</p>
+                    </div>
+                    <table class="table">
+                        <tbody>
+                            <tr><td>Chủ tài khoản:</td><td><b>Bùi Ngọc Anh</b></td></tr>
+                            <tr><td>Số TK:</td><td><b>80000528609</b></td></tr>
+                            <tr><td>Số tiền:</td><td><b>3000đ</b></td></tr>
+                            <tr><td>Nội dung CK:</td><td><b>DH12345</b></td></tr>
+                        </tbody>
+                    </table>
+                    <p class="bg-light p-2">Lưu ý: Vui lòng giữ nguyên nội dung chuyển khoản DH12345 để hệ thống tự động xác nhận thanh toán</p>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+      document.getElementById('orderForm').onsubmit = function(event) {
+        event.preventDefault();
+        document.getElementById('orderForm').style.display = 'none';
+        document.getElementById('checkoutSection').style.display = 'block';
+        setInterval(checkPaymentStatus, 1000);
+      };
+      
+      function checkPaymentStatus() {
+        // Hàm này sẽ gửi yêu cầu để kiểm tra thanh toán, tạm thời được minh họa là kiểm tra thủ công
+        $.ajax({
+          type: "POST",
+          url: "check_payment_status.php",
+          data: {order_id: "12345"},
+          dataType: "json",
+          success: function(data) {
+            if (data.payment_status === "Paid") {
+              document.getElementById("checkoutBox").style.display = "none";
+              document.getElementById("successPayBox").style.display = "block";
+            }
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

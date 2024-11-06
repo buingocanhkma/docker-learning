@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+	
+ <<!--   <script>
+        // Kiểm tra xem người dùng có đến từ trang chính hay không
+        document.addEventListener("DOMContentLoaded", function() {
+            const mainPageURL = 'login.html'; // Đường dẫn đầy đủ của trang chính
+            
+            if (document.referrer !== 'login.html') {
+                alert("Bạn chỉ có thể truy cập trang này sau khi login.");
+                window.location.href = 'login.html'; // Chuyển hướng về trang chính
+            }
+        });
+    </script>  -->
+	
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1em 2em;
+            color: white;
+            height: 70px;
+        }
+
+        .navbar__brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar__menu {
+            list-style: none;
+            display: flex;
+            gap: 1em;
+        }
+
+        .navbar__menu a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar__menu a:hover {
+            background-color: #ffffff;
+            color: #333;
+            border-radius: 5px;
+        }
+
+        /* Dropdown Menu */
+        .menu__item {
+            position: relative;
+        }
+
+        .dropdown {
+            width: 100px;
+            display: none;
+            /* Ẩn dropdown mặc định */
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            top: 170%;
+            /* Đặt vị trí bên dưới menu item */
+            left: 0;
+            border-radius: 5px;
+        }
+
+        .menu__item:hover .dropdown {
+            display: block;
+            /* Hiển thị dropdown khi hover */
+        }
+
+        .dropdown a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown li {
+            list-style-type: none;
+        }
+
+        .dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Account Dropdown */
+        .account-dropdown {
+            position: relative;
+        }
+
+        .account-dropdown__btn {
+            background-color: #28a745;
+            padding: 10px 30px;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .account-dropdown__btn:hover {
+            background-color: #218838;
+        }
+
+        .account-dropdown__menu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+            border-radius: 5px;
+        }
+
+        .account-dropdown__menu li {
+            list-style-type: none;
+        }
+
+        .account-dropdown:hover .account-dropdown__menu {
+            display: block;
+        }
+
+        /* Account Dropdown Menu */
+        .account-dropdown__menu {
+            display: none;
+            /* Ẩn menu mặc định */
+            position: absolute;
+            background-color: #ffffff;
+            /* Màu nền trắng */
+            min-width: 160px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            /* Bóng đổ */
+            z-index: 100;
+            /* Đảm bảo menu hiển thị trên các phần khác */
+            right: 0;
+            /* Đặt menu nằm bên phải của nút */
+            border-radius: 5px;
+            /* Bo góc */
+        }
+
+        /* Hiển thị menu khi hover */
+        .account-dropdown:hover .account-dropdown__menu {
+            display: block;
+        }
+
+        /* Các mục trong menu */
+        .account-dropdown__menu li {
+            list-style: none;
+            /* Bỏ dấu đầu dòng */
+        }
+
+        .account-dropdown__menu a {
+            display: block;
+            /* Chiếm toàn bộ chiều rộng */
+            padding: 10px 15px;
+            /* Khoảng cách bên trong */
+            color: #333;
+            /* Màu chữ */
+            text-decoration: none;
+            /* Bỏ gạch chân */
+            transition: background-color 0.2s;
+            /* Hiệu ứng chuyển đổi màu nền */
+        }
+
+        /* Hiệu ứng hover cho các mục menu */
+        .account-dropdown__menu a:hover {
+            background-color: #f0f0f0;
+            /* Màu nền khi hover */
+        }
+
+        /* Các mục menu cuối cùng */
+        .account-dropdown__menu li:last-child a {
+            border-bottom-left-radius: 5px;
+            /* Bo góc dưới bên trái */
+            border-bottom-right-radius: 5px;
+            /* Bo góc dưới bên phải */
+        }
+
+
+        /* Footer */
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            padding: 1em;
+            background-color: #333;
+            color: white;
+        }
+
+
+        /* Main Content */
+        .dashboard {
+            padding: 2em;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2em;
+        }
+
+        .dashboard .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .dashboard .card h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard .card .value {
+            font-size: 48px;
+            color: #28a745;
+        }
+
+        .dashboard .card .description {
+            font-size: 18px;
+            color: #666;
+        }
+
+        /* Resource Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2em;
+        }
+
+        table th,
+        table td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #28a745;
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            padding: 1em;
+            background-color: #333;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar .menu {
+                flex-direction: column;
+                gap: 0.5em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar__brand">Dashboard</div>
+        <ul class="navbar__menu">
+            <li class="menu__item"><a href="#">Trang chủ</a></li>
+            <li class="menu__item">
+                <a href="#">Dịch Vụ</a>
+                <ul class="dropdown">
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="ManageVM.html">Quản lý VM</a></li>
+					<li><a href="bash.html">Bash Shell</a></li>
+					<li><a href="ssh.html">Ssh</a></li>
+                </ul>
+            </li>
+            <li class="menu__item">
+                <a href="#">Nạp tiền</a>
+                <ul class="dropdown">
+                    <li><a href="payment/order.html">Nạp tiền tài khoản</a></li>
+                    <li><a href="#">Lịch sử nạp tiền</a></li>
+                    <li><a href="#">Top giao dịch</a></li>
+                    <li><a href="#">Lịch sử thanh toán</a></li>
+                </ul>
+            </li>
+            <li class="menu__item"><a href="#">Bài viết</a></li>
+            <li class="menu__item"><a href="policy.html">Chính sách</a></li>
+            <li class="menu__item"><a href="contact.html">Liên hệ</a></li>
+        </ul>
+
+        <!-- Account Dropdown -->
+        <div class="account-dropdown">
+            <button class="account-dropdown__btn">
+                <span id="usernameDisplay">Tài khoản</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="account-dropdown__menu">
+                <li><a href="#">Thông tin tài khoản</a></li>
+                <li><a href="#">Thiết lập tài khoản</a></li>
+                <li><a href="#" id="logout">Đăng xuất</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Main Dashboard -->
+    <div class="dashboard">
+        <!-- Thông tin tổng quát -->
+        <div class="dashboard-stats">
+            <div class="card">
+                <h3>Tổng số VM</h3>
+                <div class="value">150</div>
+                <div class="description">Number of resources available</div>
+            </div>
+
+            <div class="card">
+                <h3>Đang hoạt động</h3>
+                <div class="value">100</div>
+                <div class="description">Resources currently running</div>
+            </div>
+
+            <div class="card">
+                <h3>Đang tạm dừng</h3>
+                <div class="value">50</div>
+                <div class="description">Resources currently stopped</div>
+            </div>
+
+            <div class="card">
+                <h3>Ước tính chi phí (hour)</h3>
+                <div class="value">$7</div>
+                <div class="description">Hourly estimated cost</div>
+            </div>
+
+            <div class="card">
+                <h3>Ước tính chi phí (Month)</h3>
+                <div class="value">$500</div>
+                <div class="description">Monthly estimated cost</div>
+            </div>
+        </div>
+
+        <!-- Bảng danh sách tài nguyên của tôi -->
+        <h2>Danh sách VM sử dụng</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên VM</th>
+                    <th>Trạng thái</th>
+                    <th>Ngày tạo VM</th>
+                    <th>Thời gian chạy</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Resource A</td>
+                    <td>Running</td>
+                    <td>2023-09-10 11:50:01</td>
+                    <td>55 hours</td>
+                    <td><button>View</button></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Resource B</td>
+                    <td>Stopped</td>
+                    <td>2023-09-15 17:33:21</td>
+                    <td>122 hours</td>
+                    <td><button>View</button></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Resource C</td>
+                    <td>Active</td>
+                    <td>2023-10-01 07:13:42</td>
+                    <td>1022 hours</td>
+                    <td><button>View</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2024 Company Name. All rights reserved.</p>
+    </div>
+
+    <script>
+        function logout() {
+            // Xóa token hoặc thông tin người dùng trong local storage
+            localStorage.removeItem("userToken"); // Hoặc tên bạn đang sử dụng
+            alert("Bạn đã đăng xuất thành công!");
+            // Chuyển hướng đến trang đăng nhập hoặc trang chủ
+            window.location.href = 'login.html'; // Thay đổi theo trang bạn muốn
+        }
+
+        document.getElementById("logout").addEventListener("click", function (event) {
+            event.preventDefault();
+            const confirmLogout = window.confirm("Bạn có chắc chắn muốn đăng xuất không?");
+
+            if (confirmLogout) {
+                logout(); // Gọi hàm đăng xuất nếu người dùng xác nhận
+            }
+        });
+
+
+    </script>
+    <script>
+        window.onload = function () {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const username = localStorage.getItem('username');
+
+            // Hiển thị tên người dùng trong account-dropdown__btn
+            if (isLoggedIn === 'true' && username) {
+                document.getElementById('usernameDisplay').textContent = username;
+            } else {
+                // Nếu không có tên người dùng, có thể hiển thị một giá trị mặc định
+                document.getElementById('usernameDisplay').textContent = 'Tài khoản';
+            } 
+        };
+
+    </script>
+
+
+</body>
+
+</html>

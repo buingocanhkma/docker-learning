@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudVM-Resource Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #333;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1em 2em;
+            color: white;
+            height: 70px;
+        }
+
+        .navbar__brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar__menu {
+            list-style: none;
+            display: flex;
+            gap: 1em;
+        }
+
+        .navbar__menu a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar__menu a:hover {
+            background-color: #ffffff;
+            color: #333;
+            border-radius: 5px;
+        }
+
+        /* Dropdown Menu */
+        .menu__item {
+            position: relative;
+        }
+
+        .dropdown {
+            width: 100px;
+            display: none;
+            /* Ẩn dropdown mặc định */
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            top: 170%;
+            /* Đặt vị trí bên dưới menu item */
+            left: 0;
+            border-radius: 5px;
+        }
+
+        .menu__item:hover .dropdown {
+            display: block;
+            /* Hiển thị dropdown khi hover */
+        }
+
+        .dropdown a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown li {
+            list-style-type: none;
+        }
+
+        .dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Account Dropdown */
+        .account-dropdown {
+            position: relative;
+        }
+
+        .account-dropdown__btn {
+            background-color: #28a745;
+            padding: 10px 30px;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .account-dropdown__btn:hover {
+            background-color: #218838;
+        }
+
+        .account-dropdown__menu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+            border-radius: 5px;
+        }
+
+        .account-dropdown__menu li {
+            list-style-type: none;
+        }
+
+        .account-dropdown:hover .account-dropdown__menu {
+            display: block;
+        }
+
+        /* Account Dropdown Menu */
+        .account-dropdown__menu {
+            display: none;
+            /* Ẩn menu mặc định */
+            position: absolute;
+            background-color: #ffffff;
+            /* Màu nền trắng */
+            min-width: 160px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            /* Bóng đổ */
+            z-index: 100;
+            /* Đảm bảo menu hiển thị trên các phần khác */
+            right: 0;
+            /* Đặt menu nằm bên phải của nút */
+            border-radius: 5px;
+            /* Bo góc */
+        }
+
+        /* Hiển thị menu khi hover */
+        .account-dropdown:hover .account-dropdown__menu {
+            display: block;
+        }
+
+        /* Các mục trong menu */
+        .account-dropdown__menu li {
+            list-style: none;
+            /* Bỏ dấu đầu dòng */
+        }
+
+        .account-dropdown__menu a {
+            display: block;
+            /* Chiếm toàn bộ chiều rộng */
+            padding: 10px 15px;
+            /* Khoảng cách bên trong */
+            color: #333;
+            /* Màu chữ */
+            text-decoration: none;
+            /* Bỏ gạch chân */
+            transition: background-color 0.2s;
+            /* Hiệu ứng chuyển đổi màu nền */
+        }
+
+        /* Hiệu ứng hover cho các mục menu */
+        .account-dropdown__menu a:hover {
+            background-color: #f0f0f0;
+            /* Màu nền khi hover */
+        }
+
+        /* Các mục menu cuối cùng */
+        .account-dropdown__menu li:last-child a {
+            border-bottom-left-radius: 5px;
+            /* Bo góc dưới bên trái */
+            border-bottom-right-radius: 5px;
+            /* Bo góc dưới bên phải */
+        }
+
+
+        /* Footer */
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            padding: 1em;
+            background-color: #333;
+            color: white;
+        }
+
+
+        /* Main Content */
+        .dashboard {
+            padding: 2em;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2em;
+        }
+
+        .dashboard .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .dashboard .card h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard .card .value {
+            font-size: 48px;
+            color: #28a745;
+        }
+
+        .dashboard .card .description {
+            font-size: 18px;
+            color: #666;
+        }
+
+        /* Resource Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .dropbtn-container {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 16px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .select-all {
+            cursor: pointer;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            padding: 1em;
+            background-color: #333;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar .menu {
+                flex-direction: column;
+                gap: 0.5em;
+            }
+        }
+
+        .action-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .action-button:hover {
+            background-color: #45a049;
+        }
+
+
+
+        .dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn-container {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 16px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .dropdown-content {
+            display: none;
+            /* Ẩn dropdown mặc định */
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 4px;
+            top: 100%;
+            /* Vị trí ngay bên dưới nút Actions */
+            left: 0;
+        }
+        .action-container{
+            padding: 8px;
+            background-color: #4CAF50;
+            border-radius: 4px;
+            border: none;
+            color: #fff;
+
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown-container:hover .dropdown-content {
+            display: block;
+            /* Hiển thị dropdown khi hover vào container */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Thanh Menu -->
+    <nav class="navbar">
+        <div class="navbar__brand">Dashboard</div>
+        <ul class="navbar__menu">
+            <li class="menu__item"><a href="#">Trang chủ</a></li>
+            <li class="menu__item">
+                <a href="#">Dịch Vụ</a>
+                <ul class="dropdown">
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="ManageVM.html">Quản lý VM</a></li>
+					<li><a href="bash.html">Bash Shell</a></li>
+					<li><a href="ssh.html">Ssh</a></li>
+                </ul>
+            </li>
+            <li class="menu__item">
+                <a href="#">Nạp tiền</a>
+                <ul class="dropdown">
+                    <li><a href="payment/order.html">Nạp tiền tài khoản</a></li>
+                    <li><a href="#">Lịch sử nạp tiền</a></li>
+                    <li><a href="#">Top giao dịch</a></li>
+                    <li><a href="#">Lịch sử thanh toán</a></li>
+                </ul>
+            </li>
+            <li class="menu__item"><a href="#">Bài viết</a></li>
+            <li class="menu__item"><a href="policy.html">Chính sách</a></li>
+            <li class="menu__item"><a href="contact.html">Liên hệ</a></li>
+        </ul>
+
+        <!-- Account Dropdown -->
+        <div class="account-dropdown">
+            <button class="account-dropdown__btn">
+                <span id="usernameDisplay">Tài khoản</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="account-dropdown__menu">
+                <li><a href="#">Thông tin tài khoản</a></li>
+                <li><a href="#">Thiết lập tài khoản</a></li>
+                <li><a href="#" id="logout">Đăng xuất</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Quản lý VM</h1>
+
+        <!-- Bộ lọc tài nguyên -->
+        <div>
+            <input type="text" id="vm_filter_type" placeholder="Filter by resource name..." onkeyup="filterTable()">
+            <select id="filterType" onchange="filterTable()">
+                <option value="">Filter by resource type</option>
+                <option value="Basic1">Basic 1</option>
+                <option value="Basic2">Basic 2</option>
+                <option value="Basic3">Basic 3</option>
+                <option value="Basic4">Basic 4</option>
+                <option value="Basic5">Basic 5</option>
+            </select>
+        </div>
+
+        <!-- Bảng hiển thị tài nguyên -->
+        <table id="vm_rs_table">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="selectAll" class="select-all" onclick="toggleSelectAll(this)"></th>
+                    <th>Tên VM</th>
+                    <th>Hệ điều hành</th>
+                    <th>Loại VM</th>
+                    <th>IP</th>
+                    <th>Cấu hình</th>
+                    <th>Trạng thái VM</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox" class="resource-checkbox"></td>
+                    <td>Server A</td>
+                    <td>Ubuntu</td>
+                    <td>Basic 1</td>
+                    <td>203.45.x.x</td>
+                    <td>Server 1</td>
+                    <td>Running</td>
+                    <td>
+                        <div class="dropdown-container">
+                            <button class="action-container">Actions</button>
+                            <div class="dropdown-content">
+                                <a href="#" onclick="startResource('Storage X')">Start VM</a>
+                                <a href="#" onclick="stopResource('Storage X')">Stop VM</a>
+                                <a href="#" onclick="restartResource('Storage X')">Restart VM</a>
+                                <a href="#" onclick="deleteResource('Storage X')">Delete VM</a>
+                                <a href="#" onclick="viewDetails('Storage X')">Thông tin kết nối</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" class="resource-checkbox"></td>
+                    <td>Database B</td>
+                    <td>Window</td>
+                    <td>Basic 2</td>
+                    <td>46.45.x.x</td>
+                    <td>Database</td>
+                    <td>Stopped</td>
+                    <td>
+                        <div class="dropdown-container">
+                            <button class="action-container">Actions</button>
+                            <div class="dropdown-content">
+                                <a href="#" onclick="startResource('Storage X')">Start VM</a>
+                                <a href="#" onclick="stopResource('Storage X')">Stop VM</a>
+                                <a href="#" onclick="restartResource('Storage X')">Restart VM</a>
+                                <a href="#" onclick="deleteResource('Storage X')">Delete VM</a>
+                                <a href="#" onclick="viewDetails('Storage X')">Thông tin kết nối</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" class="resource-checkbox"></td>
+                    <td>Storage X</td>
+                    <td>ubuntu</td>
+                    <td>Basic 1</td>
+                    <td>183.37.x.x</td>
+                    <td>Storage</td>
+                    <td>Running</td>
+                    <td>
+                        <div class="dropdown-container">
+                            <button class="action-container">Actions</button>
+                            <div class="dropdown-content">
+                                <a href="#" onclick="startResource('Storage X')">Start VM</a>
+                                <a href="#" onclick="stopResource('Storage X')">Stop VM</a>
+                                <a href="#" onclick="restartResource('Storage X')">Restart VM</a>
+                                <a href="#" onclick="deleteResource('Storage X')">Delete VM</a>
+                                <a href="#" onclick="viewDetails('Storage X')">Thông tin kết nối</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Button Thêm và Xóa Tài Nguyên -->
+        <div class="button-container">
+            <button href="createVM.html" target="_blank" class="action-button" onclick="addResource()">Add
+                Resource</button>
+            <button class="action-button" onclick="deleteSelectedResources()">Delete Selected Resources</button>
+        </div>
+    </div>
+
+    <script>
+        // Hàm lọc tài nguyên theo tên và loại VM
+        function filterTable() {
+            const nameFilter = document.getElementById('vm_filter_type').value.toUpperCase(); // Lọc theo tên
+            const typeFilter = document.getElementById('filterType').value.toUpperCase(); // Lọc theo loại VM
+            const table = document.getElementById('vm_rs_table');
+            const tr = table.getElementsByTagName('tr');
+
+            // Lặp qua tất cả các hàng trong bảng (bỏ qua hàng đầu tiên là tiêu đề)
+            for (let i = 1; i < tr.length; i++) {
+                let tdName = tr[i].getElementsByTagName('td')[1]; // Tên VM
+                let tdType = tr[i].getElementsByTagName('td')[3]; // Loại VM
+
+                if (tdName && tdType) {
+                    let nameText = tdName.textContent || tdName.innerText;
+                    let typeText = tdType.textContent || tdType.innerText;
+
+                    // Kiểm tra nếu tên và loại phù hợp với bộ lọc
+                    if (nameText.toUpperCase().indexOf(nameFilter) > -1 && (typeText.toUpperCase().indexOf(typeFilter) > -1 || typeFilter === "")) {
+                        tr[i].style.display = ""; // Hiển thị nếu khớp với bộ lọc
+                    } else {
+                        tr[i].style.display = "none"; // Ẩn nếu không khớp với bộ lọc
+                    }
+                }
+            }
+        }
+
+        // Hàm khởi động tài nguyên
+        function startResource(resourceName) {
+            alert(`Starting resource: ${resourceName}`);
+        }
+
+        // Hàm tắt tài nguyên
+        function stopResource(resourceName) {
+            alert(`Stopping resource: ${resourceName}`);
+        }
+
+        // Hàm khởi động lại tài nguyên
+        function restartResource(resourceName) {
+            alert(`Restarting resource: ${resourceName}`);
+        }
+
+        // Hàm xóa tài nguyên
+        function deleteResource(resourceName) {
+            if (confirm(`Are you sure you want to delete ${resourceName}?`)) {
+                alert(`Resource deleted: ${resourceName}`);
+            }
+        }
+
+        // Hàm xem chi tiết tài nguyên
+        function viewDetails(resourceName) {
+            alert(`Viewing details of resource: ${resourceName}`);
+        }
+
+        // Hàm chọn tất cả checkbox
+        function toggleSelectAll(selectAllCheckbox) {
+            const checkboxes = document.querySelectorAll('.resource-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+        }
+
+        // Hàm thêm tài nguyên mới
+        function addResource() {
+            //alert("Add a new resource");
+            // Bạn có thể thêm logic để mở một modal hoặc một trang để thêm tài nguyên mới
+            if (confirm(`Are you sure you want to add resource?`)) {
+                window.open('createVM.html', '_blank');
+            }
+        }
+
+        // Hàm xóa các tài nguyên đã chọn
+        function deleteSelectedResources() {
+            const selected = document.querySelectorAll('.resource-checkbox:checked');
+            if (selected.length === 0) {
+                alert("No resources selected for deletion.");
+                return;
+            }
+
+            if (confirm(`Are you sure you want to delete ${selected.length} selected resources?`)) {
+                selected.forEach(checkbox => {
+                    checkbox.closest('tr').remove(); // Xóa hàng chứa tài nguyên được chọn
+                });
+                alert(`${selected.length} resources deleted.`);
+            }
+        }
+    </script>
+</body>
+
+</html>

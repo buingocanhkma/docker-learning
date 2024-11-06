@@ -1,0 +1,288 @@
+/*breadcrumbs*/
+.page-top {
+    background-color: #171717;
+        border-bottom: 5px solid #cccccc;
+}
+.page-top .yoast-breadcrumbs, .page-top .breadcrumbs-wrap {
+    color: #777777;
+}
+
+.detail-content img {
+    margin: 0 auto;
+    display: block;
+    border-radius: 8px;
+}
+.page-top .yoast-breadcrumbs a, .page-top .breadcrumbs-wrap a, .page-top .product-nav .product-link {
+    color: #0088cc;
+}
+.page-top > .container {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.page-top .yoast-breadcrumbs {
+    font-size: 12px;
+}
+.page-top .page-title {
+    color: #ffffff;
+}
+/*end breadcrumbs*/
+
+
+.box-head{    padding-bottom: 10px;  }
+.box-head .name-head{
+ margin-top: 5px;font-size: 28px;
+  margin-bottom: 5px;text-transform: uppercase;
+  padding-top: 15px;
+}
+.box-breadcrumb .breadcrumb > li> a{color: #004f9e;}
+.box-breadcrumb .breadcrumb > .active {    color: #000;}
+/*tag bài viết*/
+.list-tag a{
+  display:inline-block;padding: 5px 12px;background-color:#fafafa;
+  margin: 3px 1px 3px 1px;color: #666;border: 1px solid #eee;
+}
+.list-tag a.active{  background-color:#ddd;border: 1px solid #888}
+.list-tag a:hover{  background-color:#f3c98d;}
+/*bài viết liên quan*/
+.box-relater {  
+ border-top: 1px solid #d7d7d7;    position: relative;   
+ padding-top: 30px;    margin-top: 40px;
+}
+.box-relater .title {   
+ position: absolute;    top: -13px;    left: 0px;    
+ padding-right: 10px;    background-color: #fff;   
+ z-index: 9;    text-transform: uppercase;    
+ font-size: 20px;    margin-bottom: 30px;   
+ color: #444;    margin-top: 1px;
+}
+.box-relater .name{    margin-top: 10px;    margin-bottom: 20px;}
+.box-relater .name,.news-paper .item .name{  
+  color: #444;    display: block;    height: 44px;  
+  overflow: hidden;    font-weight: bold;    font-size: 16px;
+}
+/*cột phải*/
+.news-hot {    position: relative;    margin-top: 15px;}
+.fillter .title {    font-size: 16px;    margin-top: 0px;}
+.title-name { 
+  font-size: 22px;    color: #06184d;    background-color: #fff;  
+  text-transform: uppercase;   
+}
+.list-news .thumb-news{    width: 100%;}
+.list-news .box-img{   
+  width: 110px;    min-height: 70px;    float: left;   
+  margin-right: 12px;    overflow: hidden;    display: block; 
+  position: relative;    background-color: #eee;
+  border-radius: 5px;
+}
+.list-news .item-event .box-img{    width: 120px;    height: 120px;}
+#thumb{   
+ overflow: hidden;    display: block;    position: relative;
+ background-color: #eee;
+}
+.list-news .item {    overflow: hidden;    padding-top: 9px;    padding-bottom: 8px;}
+.list-news{padding: 0px; margin: 0px}
+.list-news .item .name{   
+ line-height: 18px;    display: block;    margin-bottom: 6px; 
+ color: #444;    font-size: 18px;    /* font-weight: bold; */
+ display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.list-news .item .date{   
+ font-size: 12px;    color: #a09c9c;    margin-bottom: 0px;
+ display: none;
+}
+/*register*/
+.register{
+    background-color: #eee;
+}
+.box_register .title{font-size: 28px;text-transform: uppercase;color: #333 !important;margin-top: 10px;font-weight: BOLD;}
+.register .box_register{
+    box-shadow: 0px 10px 20px 9px rgba(28,30,35,0.1);
+    /* border-radius: 10px; */
+    background-color: #fff;
+    position: relative;
+    /* max-width: 430px; */
+    margin: 0 auto;
+    /* margin-top: 45px; */
+    margin-bottom: 45px;
+    padding: 20px;
+}
+@media (min-width: 1200px){
+    .register .box_register {
+        margin-top: 20px;
+        margin-bottom: 65px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+}
+.btn_submit i {font-size: 16px; margin-right: 5px;}
+.box_option .forget_pass {
+    color: #ff3030 !important;
+    font-size: 13px !important;
+    padding: 0px !important;
+}
+.box_option label {font-weight: normal; font-size: 13px;}
+.box_login_social {
+    background: #f4f3f3;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+#site-body .register .right {
+    background: url(../../../images/bg/bg-login.png) left center no-repeat;
+    min-height: 500px;
+}
+#site-body .register .left {
+    /* border: 1px solid #007CC2; */
+    /*width: 450px;*/
+}
+#site-body .register .left .title {
+    margin: 0px 0px 15px 0px;
+    padding: 10px 0px 10px 0px;
+    text-transform: uppercase;
+    color: #004f9e;
+    font-weight: bold;
+    clear: both;
+    font-size: 22px;
+}
+#site-body .register .left .title span {color: #000;}
+#site-body .register .left .btn_facebook{
+    width: 100%;
+    border-radius: 0px;
+    margin-right: 15px;
+    padding: 0px;
+    height: 40px;
+    background: #415E9C;
+    margin-bottom: 15px;
+}
+#site-body .register .left .social_register {
+    overflow: hidden;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+#site-body .register .left .line {
+    position: relative;
+    margin: 15px 0px 15px 0px;
+    text-align: center;
+}
+#site-body .register .form-control {
+    border-radius: 0px;
+    outline: none;
+    box-shadow: none;
+    height: 40px;
+    padding-left: 30px;
+    margin-bottom: 0px;
+}
+#site-body .register .fa_user {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    color: #999999;
+}
+#site-body .register .form-group {
+    overflow: hidden; position: relative;
+}
+#site-body .register .left .fa_fb {
+    /*float: left;*/
+    background: #3a5795;
+    float: left;
+    /*background: #cf4536;*/
+    height: 38px;
+    width: 38px;
+    padding: 9px 0px 0px 0px;
+    font-size: 20px;
+}
+#site-body .register .btn_submit {
+    background: #ff5000;
+    border-color: #d85114;
+    color: #FFF;
+    text-shadow: none;
+    width: 100%;
+    border-radius: 4px;
+    text-transform: uppercase;
+    padding: 10px 0px;
+}
+#site-body .register .left .btn_google{
+    width: 100%;
+    border-radius: 0px;
+    margin-right: 15px;
+    padding: 0px;
+    background: #e64c3c;
+    height: 40px;
+    border-color: #e64c3c;
+}
+#site-body .register .left .fa_gl {
+    float: left;
+    background: #cf4536;
+    height: 38px;
+    width: 38px;
+    padding: 9px 0px 0px 0px;
+    font-size: 20px;
+}
+#site-body .register .left a {
+    color: #fff;
+    float: left;
+    padding: 9px 0px 0px 10px;
+    font-size: 16px;
+}
+#site-body .register .forgotPass {
+    margin: 10px 0px 0px 0px;
+    overflow: hidden;font-size: 13px;
+}
+#site-body .register .forgotPass a {
+    color: #ff3030;font-size: 13px;float: none;
+}
+.detail-content .intro {font-weight: bold;}
+
+.detail-content h2 {font-size: 18px !important;}
+.detail-content h3 {font-size: 16px !important;}
+/*anchor text*/
+.toc{
+    border: 1px solid #a2a9b1;
+    background-color: #f8f9fa;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+.toc ul {
+      list-style: none;margin: 0px;
+}
+.toc li>ul{
+    padding-left: 15px;
+}
+.toc h2 {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.detail-news {padding-bottom: 15px; }
+.detail-news .main-content p, .detail-news .main-content span{
+    font-size: 18px !important;
+}
+@media (max-width:425px ){
+    .detail-content img {width: 100% !important}
+}
+
+@media (min-width: 1200px){
+    .detail-content img {
+        max-width: 800px !important;
+        width: 100%;
+        height: auto !important;
+    }
+}
+@media (min-width: 768px) AND (max-width: 1200px){
+    .detail-content img {
+        width: 100%;
+        height: auto !important;
+    }
+}
+
+@media (max-width: 768px){
+    .detail-content img {
+        height: auto !important;
+        width: 100% !important;
+    }
+}

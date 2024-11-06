@@ -1,0 +1,111 @@
+body a:hover,body a:focus{text-decoration: none}
+
+body{
+  font-size: 16px;
+}
+.wrapper {overflow: hidden;}
+.navitor {
+  background: #fff;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(228, 228, 228, 0.1);
+  box-shadow: 0 0 3px 0 rgba(0,0,0,0.06);
+}
+.header-nav {
+      box-shadow: 1px 1px 10px rgba(0,0,0,.15);
+}
+
+/*end footer*/
+@media(max-width: 767px){
+  .navbar-brand > img {        
+    display: block;       
+    width: 150px;   
+  }   
+
+}
+@media(min-width: 769px){ 
+ #main-nav {float: right;}
+ .navitor .module{
+  position: relative;
+} 
+.navbar-brand > img {
+  width: 140px;
+  position: absolute;
+  left: 5px;
+  top: 10px;
+  z-index: 999;
+} 
+.logo_top {    width: 150px;}
+
+}
+
+/*******NEW STYLE********/
+body a {color: #222222;}
+.logo_top {display: block;    margin: 0 auto;margin-bottom: 15px;}
+
+/*hotline*/
+.hotline {
+    position: fixed;
+    right: 10px;
+    bottom: 3px;
+    z-index: 9000;
+    display: block;
+    background: #fff0;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 99px;
+}
+.hotline .txthotline {
+    font-size: 17px;
+    color: #fff;
+    font-weight: normal;
+}
+
+.hotline .hotline-number {
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.fa_bar_user {font-size: 35px;}
+.module .navbar-toggle {
+  margin-bottom:0px !important;
+  padding: 9px 10px 0px 10px;
+}
+
+
+/*icon gọi điện*/
+.icon_mess {
+    position: fixed;
+    right: 20px;
+    bottom: 160px;
+    z-index: 999999!important;
+    background: #006df0;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 50%;
+    color: #fff;
+    width: 50px;
+    height: 50px;
+  }
+  .icon_mess img {margin: 8px;   width: 34px;}
+  .icon_zalo {
+    position: fixed;
+    right: 20px;
+    bottom: 88px;
+    z-index: 999999!important;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 15px 15px;
+    color: #fff;
+    width: 52px;
+    height: 52px;
+    overflow: hidden;
+  }
+  .icon_zalo img {width: 100%;}
+  @media (max-width:768px){
+    .view_hsnl {display:none;}
+  }
+  .widget-visible iframe {position:absolute; right:0px !important;}

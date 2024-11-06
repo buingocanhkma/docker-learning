@@ -1,0 +1,84 @@
+@media (min-width: 1200px){
+	.sm-blue a{
+	text-transform: uppercase;
+	}
+}
+@media (min-width: 992px) and (max-width: 1200px){
+	.banner-content {
+		padding: 180px 0 0 80px;
+	}
+}
+@media (min-width: 769px) and (max-width: 992px){
+	#main-menu>li {
+		padding: 15px 12px 15px 12px !important;
+	}
+	.sm-blue a, .sm-blue a:hover, .sm-blue a:focus, .sm-blue a:active {
+		font-size: 16px !important;
+	}
+}
+
+@media (min-width: 769px){
+	.remove-padd {padding-left: 5px; padding-right: 5px;}
+}
+@media (max-width: 768px){
+	.navbar-brand {padding: 5px 15px;}
+	.navbar-brand img {
+		width: 140px;
+		margin-top: 15px;
+	}
+	.item_row_home_right {padding-left: 15px; padding-right: 15px;}
+	.navbar-header {margin-bottom: 15px;}
+	/*#main-menu li:last-child a {margin-bottom: 15px;}*/
+	.home-function .row-item {margin-bottom: 15px !important;}
+	.home-free-user {background-position:0px 0px !important;}
+	.home-free-user .text-title {
+		font-size: 24px !important;
+		position: absolute !important;
+		top: 50px !important;
+	}
+
+	/*.text-header {margin-left: 15px;}*/
+	.img-CEO {display: block !important;}
+	.img-CEO-left {height: auto !important;}
+	.slider-container {display: block;}
+}
+.breadcrumb {margin-top: 15px;}
+
+
+@font-face {
+	font-family: 'arboria';
+	src: url('https://files.exam24h.com/upload/2024/03/19_1710857359351/65825aa49d66ac8c47c6b01d/SVN-Arboria-Black.ttf') format('truetype');
+	font-weight: 900;
+  }
+  
+  @font-face {
+	font-family: 'arboria';
+	src: url('https://files.exam24h.com/upload/2024/03/19_1710857388649/65825aa49d66ac8c47c6b01d/SVN-Arboria-Bold.ttf') format('truetype');
+	font-weight: 700;
+  }
+  @font-face {
+	font-family: 'arboria';
+	src: url('https://files.exam24h.com/upload/2024/03/19_1710857388649/65825aa49d66ac8c47c6b01d/SVN-Arboria-Bold.ttf') format('truetype');
+	font-weight: 600;
+  }
+  @font-face {
+	font-family: 'arboria';
+	src: url('https://files.exam24h.com/upload/2024/03/19_1710857388649/65825aa49d66ac8c47c6b01d/SVN-Arboria-Bold.ttf') format('truetype');
+	font-weight: 800;
+  }
+  
+  @font-face {
+	font-family: 'arboria';
+	src: url('https://files.exam24h.com/upload/2024/03/19_1710857428322/65825aa49d66ac8c47c6b01d/SVN-Arboria-Book.ttf') format('truetype');
+	font-weight: 500;
+  }
+  @font-face {
+	font-family: 'arboria';
+	src: url('https://files.exam24h.com/upload/2024/03/19_1710857428322/65825aa49d66ac8c47c6b01d/SVN-Arboria-Book.ttf') format('truetype');
+	font-weight: 400;
+  }
+  
+
+body{
+  font-family: "arboria", sans-serif; 
+}

@@ -1,0 +1,45 @@
+
+/*footer*/
+.footer {
+  padding: 50px 0px 10px 0px;
+  border-top: 1px solid #eee;
+}
+.footer .footer-title{
+  color: rgb(84, 84, 84);
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+    line-height: 1.4;
+    text-transform: uppercase;
+}
+.footer .ladi-shape {width: 40px; height: 40px;display: inline-block;}
+.footer .ul-list {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+.footer .ul-list li {margin-bottom: 10px;}
+.footer .ul-list .fa_user {font-size: 16px; margin-right: 10px;}
+.footer .footer-hotline{
+  color: rgb(199, 31, 22);
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.6;
+  border: 2px solid rgb(199, 31, 22);
+  border-radius: 15px;
+  padding: 5px 40px;
+}
+
+.footer-bottom {
+  border-top: 1px solid #eee;
+  padding: 20px 0px;
+  margin-top: 25px;
+}
+.footer-bottom .text {
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.footer-bottom .copyright {
+  font-size: 13px;
+}

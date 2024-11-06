@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List EC2 Instances</title>
+    <style>
+        /* Reset margin and padding for a consistent baseline */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Styling for the entire page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            /* padding: 20px; */
+        }
+
+        /* style thanh menu */
+
+        /* Navbar */
+        .navbar {
+            background-color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1em 2em;
+            color: white;
+            height: 70px;
+        }
+
+        .navbar__brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar__menu {
+            list-style: none;
+            display: flex;
+            gap: 1em;
+        }
+
+        .navbar__menu a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar__menu a:hover {
+            background-color: #ffffff;
+            color: #333;
+            border-radius: 5px;
+        }
+
+        /* Dropdown Menu */
+        .menu__item {
+            position: relative;
+        }
+
+        .dropdown {
+            width: 100px;
+            display: none;
+            /* Ẩn dropdown mặc định */
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            top: 170%;
+            /* Đặt vị trí bên dưới menu item */
+            left: 0;
+            border-radius: 5px;
+        }
+
+        .menu__item:hover .dropdown {
+            display: block;
+            /* Hiển thị dropdown khi hover */
+        }
+
+        .dropdown a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown li {
+            list-style-type: none;
+        }
+
+        .dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Account Dropdown */
+        .account-dropdown {
+            position: relative;
+        }
+
+        .account-dropdown__btn {
+            background-color: #28a745;
+            padding: 10px 30px;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .account-dropdown__btn:hover {
+            background-color: #218838;
+        }
+
+        .account-dropdown__menu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+            border-radius: 5px;
+        }
+
+        .account-dropdown__menu li {
+            list-style-type: none;
+        }
+
+        .account-dropdown:hover .account-dropdown__menu {
+            display: block;
+        }
+
+        /* Account Dropdown Menu */
+        .account-dropdown__menu {
+            display: none;
+            /* Ẩn menu mặc định */
+            position: absolute;
+            background-color: #ffffff;
+            /* Màu nền trắng */
+            min-width: 160px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            /* Bóng đổ */
+            z-index: 100;
+            /* Đảm bảo menu hiển thị trên các phần khác */
+            right: 0;
+            /* Đặt menu nằm bên phải của nút */
+            border-radius: 5px;
+            /* Bo góc */
+        }
+
+        /* Hiển thị menu khi hover */
+        .account-dropdown:hover .account-dropdown__menu {
+            display: block;
+        }
+
+        /* Các mục trong menu */
+        .account-dropdown__menu li {
+            list-style: none;
+            /* Bỏ dấu đầu dòng */
+        }
+
+        .account-dropdown__menu a {
+            display: block;
+            /* Chiếm toàn bộ chiều rộng */
+            padding: 10px 15px;
+            /* Khoảng cách bên trong */
+            color: #333;
+            /* Màu chữ */
+            text-decoration: none;
+            /* Bỏ gạch chân */
+            transition: background-color 0.2s;
+            /* Hiệu ứng chuyển đổi màu nền */
+        }
+
+        /* Hiệu ứng hover cho các mục menu */
+        .account-dropdown__menu a:hover {
+            background-color: #f0f0f0;
+            /* Màu nền khi hover */
+        }
+
+        /* Các mục menu cuối cùng */
+        .account-dropdown__menu li:last-child a {
+            border-bottom-left-radius: 5px;
+            /* Bo góc dưới bên trái */
+            border-bottom-right-radius: 5px;
+            /* Bo góc dưới bên phải */
+        }
+
+        /* nội dung */
+        .policy-1-container{
+            margin: 25px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 30px;
+            color: #333;
+        }
+
+        /* Dropdown menu and button styling */
+        label {
+            font-size: 16px;
+            color: #555;
+        }
+
+        #regionSelect {
+            padding: 8px;
+            margin-left: 10px;
+            margin-right: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #loading {
+            display: none;
+            margin: 15px 0;
+            font-weight: bold;
+            font-size: 16px;
+            color: #007BFF;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            text-align: center;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f2f2f2;
+        }
+
+        td {
+            color: #555;
+            text-align: center;
+        }
+
+        /* Error message styling */
+        .error {
+            color: red;
+            font-weight: bold;
+            margin-top: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- thanh menu -->
+    <nav class="navbar">
+        <div class="navbar__brand">Dashboard</div>
+        <ul class="navbar__menu">
+            <li class="menu__item"><a href="#">Trang chủ</a></li>
+            <li class="menu__item">
+                <a href="#">Dịch Vụ</a>
+                <ul class="dropdown">
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="ManageVM.html">Quản lý VM</a></li>
+                    <li><a href="bash.html">Bash Shell</a></li>
+                    <li><a href="ssh.html">Ssh</a></li>
+                </ul>
+            </li>
+            <li class="menu__item">
+                <a href="#">Nạp tiền</a>
+                <ul class="dropdown">
+                    <li><a href="payment/order.html">Nạp tiền tài khoản</a></li>
+                    <li><a href="#">Lịch sử nạp tiền</a></li>
+                    <li><a href="#">Top giao dịch</a></li>
+                    <li><a href="#">Lịch sử thanh toán</a></li>
+                </ul>
+            </li>
+            <li class="menu__item"><a href="#">Bài viết</a></li>
+            <li class="menu__item"><a href="policy.html">Chính sách</a></li>
+            <li class="menu__item"><a href="contact.html">Liên hệ</a></li>
+        </ul>
+
+        <!-- Account Dropdown -->
+        <div class="account-dropdown">
+            <button class="account-dropdown__btn">
+                <span id="usernameDisplay">Tài khoản</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="account-dropdown__menu">
+                <li><a href="#">Thông tin tài khoản</a></li>
+                <li><a href="#">Thiết lập tài khoản</a></li>
+                <li><a href="#" id="logout">Đăng xuất</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- policy-1 -->
+    <div class="policy-1-container">
+        <h1>List of EC2 Instances</h1>
+
+        <label for="regionSelect">Select Region:</label>
+        <select id="regionSelect">
+            <option value="us-east-1">Virginia (us-east-1)</option>
+            <option value="ap-southeast-1">Singapore (ap-southeast-1)</option>
+        </select>
+
+        <button onclick="fetchInstances()">Fetch EC2 Instances</button>
+        <div id="loading">Loading, please wait...</div>
+        <div id="errorMessage" class="error"></div> <!-- Error message container -->
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Instance ID</th>
+                    <th>State</th>
+                    <th>Instance Type</th>
+                    <th>Public IP Address</th>
+                    <th>Launch Time</th>
+                    <th>Tags</th>
+                </tr>
+            </thead>
+            <tbody id="instancesTableBody"></tbody>
+        </table>
+    </div>
+
+    <script>
+        async function fetchInstances() {
+            const region = document.getElementById('regionSelect').value;
+            let endpoint;
+
+            if (region === 'us-east-1') {
+                endpoint = 'https://8z84v0jdih.execute-api.us-east-1.amazonaws.com/ec2-instances';
+            } else if (region === 'ap-southeast-1') {
+                endpoint = 'https://gm1o9zp4kd.execute-api.ap-southeast-1.amazonaws.com/ec2-instances';
+            }
+
+            const loadingMessage = document.getElementById('loading');
+            const errorMessage = document.getElementById('errorMessage');
+            const instancesTable = document.getElementById('instancesTableBody');
+
+            try {
+                loadingMessage.style.display = 'block';
+                errorMessage.textContent = ''; // Clear previous error
+                instancesTable.innerHTML = ''; // Clear previous table data
+
+                const response = await fetch(endpoint);
+                if (!response.ok) {
+                    const errorDetails = await response.text();
+                    throw new Error(`Network response was not ok: ${errorDetails}`);
+                }
+                const data = await response.json();
+                const instances = Array.isArray(data) ? data : [data];
+
+                instances.forEach(instance => {
+                    const row = document.createElement('tr');
+                    // Chuyển đổi Tags thành chuỗi nếu có Tags
+                    const tags = instance.Tags && instance.Tags.length > 0
+                        ? instance.Tags.map(tag => `${tag.Value}`).join(', ')
+                        : 'N/A';
+
+                    row.innerHTML = `
+                        <td>${instance.InstanceId || 'N/A'}</td>
+                        <td>${instance.State || 'N/A'}</td>
+                        <td>${instance.InstanceType || 'N/A'}</td>
+                        <td>${instance.PublicIpAddress || 'N/A'}</td>
+                        <td>${new Date(instance.LaunchTime).toLocaleString() || 'N/A'}</td>
+                        <td>${tags}</td> <!-- Hiển thị Tags đã định dạng -->
+                        `;
+                    instancesTable.appendChild(row);
+                });
+
+            } catch (error) {
+                console.error('Error fetching EC2 instances:', error);
+                errorMessage.textContent = 'Error fetching EC2 instances: ' + error.message;
+            } finally {
+                loadingMessage.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>

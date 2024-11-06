@@ -1,0 +1,1 @@
+gồm các trang đăng nhập, đăng ký, quên mật khẩu, verify email, quản lý dịch vụ

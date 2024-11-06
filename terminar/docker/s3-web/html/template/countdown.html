@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        /* Cài đặt ảnh nền và căn chỉnh */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+            background: url('../photo/1.jpg') no-repeat center center/cover;
+            text-align: center;
+        }
+
+        /* Thiết lập khung đếm ngược */
+        .countdown-container {
+            background: rgba(0, 0, 0, 0.6);  /* Mờ khung để dễ đọc */
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Thiết kế đồng hồ */
+        .countdown {
+            font-size: 2em;
+            letter-spacing: 2px;
+        }
+
+        .label {
+            font-size: 0.5em;
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="countdown-container">
+        <h1>Countdown to New Year!</h1>
+        <div class="countdown" id="countdown">
+            <div><span id="days">00</span><span class="label">Days</span></div>
+            <div><span id="hours">00</span><span class="label">Hours</span></div>
+            <div><span id="minutes">00</span><span class="label">Minutes</span></div>
+            <div><span id="seconds">00</span><span class="label">Seconds</span></div>
+        </div>
+    </div>
+
+    <script>
+        // Thiết lập ngày đích cho đồng hồ đếm ngược
+        const targetDate = new Date("Dec 31, 2024 23:59:59").getTime();
+
+        // Hàm đếm ngược
+        const countdownInterval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            // Tính toán ngày, giờ, phút, giây còn lại
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Hiển thị kết quả
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+
+            // Khi đếm ngược kết thúc
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").innerHTML = "Happy New Year!";
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>

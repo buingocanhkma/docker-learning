@@ -1,0 +1,62 @@
+
+.slider {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    margin-top: 20px;
+}
+.slider-track {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+.slide {
+    min-width: 100%;
+    height: 720px; /* tăng chiều cao lên 720p */
+    padding: 20px;
+    color: #fff;
+    border-radius: 8px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+}
+.slide h2, .slide p {
+    margin: 10px 0;
+}
+/* Background images for each slide */
+.slide:nth-child(1) {
+    background-image: url("../../../photo/1.jpg");
+	background-color: #cccccc;
+}
+.slide:nth-child(2) {
+    background-image: url("../../../photo/2.jpg");
+	background-color: #cccccc;
+}
+.slide:nth-child(3) {
+    background-image: url("../../../photo/gpu.png");
+	background-color: #cccccc;
+}
+/* Slider Buttons */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    z-index: 10;
+}
+.slider-btn.left {
+    left: 10px;
+}
+.slider-btn.right {
+    right: 10px;
+}
+

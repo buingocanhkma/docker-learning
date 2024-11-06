@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudVM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        /* Styles for the navigation menu */
+        nav {
+            background-color: #007bff;
+            padding: 10px;
+            color: white;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .btn {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-edit {
+            background-color: #ffc107;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="dashboard.html">Trang chủ</a></li>
+        <li><a href="ManageVM.html">Quản lý VM</a></li>
+        <li><a href="#">Thông tin tài khoản</a></li>
+        <li><a href="#">Đăng xuất</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <h1>Khởi tạo VM mới</h1>
+    
+    <!-- Form để thêm tài nguyên mới -->
+    <div class="form-group">
+        <label for="resourceName">Tên VM</label>
+        <input type="text" id="resourceName" placeholder="Enter resource name">
+    </div>
+    <div class="form-group">
+        <label for="resourceType">Hệ điều hành</label>
+        <select id="vm_os">
+            <option value="Server">Window</option>
+            <option value="Database">Ubuntu</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="resourceType">Vùng VM</label>
+        <select id="vm_region">
+            <option value="Server">US</option>
+            <option value="Database">Singapore</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="resourceType">Loại VM</label>
+        <select id="vm_type">
+            <option value="Server">Basic 1</option>
+            <option value="Database">Basic 2</option>
+            <option value="Storage">Basic 3</option>
+            <option value="Network">Basic 4</option>
+            <option value="Application">Basic 5</option>
+        </select>
+    </div> 
+    <button class="btn" onclick="addResource()">Xem thông tin</button>
+
+    <!-- Bảng hiển thị tài nguyên -->
+    <table id="vm_table">
+        <thead>
+            <tr>
+                <th>Tên VM</th>
+                <th>Hệ điều hành</th>
+                <th>Vùng VM</th>
+                <th>Loại VM</th>
+                <th>Thông tin</th>
+                <th>Chi phí</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dữ liệu tài nguyên sẽ hiển thị ở đây -->
+        </tbody>
+    </table>
+    <button class="btn" onclick="addResource()">Tạo tài nguyên</button>
+</div>
+
+<script>
+    let resources = [];
+
+    // Hàm thêm tài nguyên vào bảng
+    function addResource() {
+        const name = document.getElementById('resourceName').value;
+        const type = document.getElementById('vm_os').value; // Sửa ID để lấy giá trị đúng
+
+        if (name && type) {
+            resources.push({ name, type });
+            renderTable();
+            clearForm();
+        } else {
+            alert('Please enter a resource name.');
+        }
+    }
+
+    // Hàm render dữ liệu tài nguyên ra bảng
+    function renderTable() {
+        const tableBody = document.querySelector('#vm_table tbody'); // Sửa ID cho đúng
+        tableBody.innerHTML = '';
+        
+        resources.forEach((resource, index) => {
+            const row = `
+                <tr>
+                    <td>${resource.name}</td>
+                    <td>${resource.type}</td>
+                    <td>
+                        <button class="btn-edit" onclick="editResource(${index})">Edit</button>
+                        <button class="btn btn-danger" onclick="deleteResource(${index})">Delete</button>
+                    </td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    // Hàm xóa tài nguyên
+    function deleteResource(index) {
+        resources.splice(index, 1);
+        renderTable();
+    }
+
+    // Hàm chỉnh sửa tài nguyên
+    function editResource(index) {
+        const resource = resources[index];
+        document.getElementById('resourceName').value = resource.name;
+        document.getElementById('vm_os').value = resource.type; // Sửa ID để lấy giá trị đúng
+
+        deleteResource(index); // Xóa dòng hiện tại và chờ thêm lại
+    }
+
+    // Hàm xóa dữ liệu trong form
+    function clearForm() {
+        document.getElementById('resourceName').value = '';
+        document.getElementById('vm_os').value = 'Server'; // Sửa ID để lấy giá trị đúng
+    }
+</script>
+
+</body>
+</html>
