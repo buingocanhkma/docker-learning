@@ -53,7 +53,7 @@
     <link rel="stylesheet" type="text/css" href="templates/default/css/page_footer.css?v=7">
     <link rel="stylesheet" type="text/css" href="templates/default/css/page_home_new.css?v=26">
 	<link rel="stylesheet" type="text/css" href="templates/default/css/slide-card.css?v=27">
-	<link rel="stylesheet" type="text/css" href="templates/default/css/pop-up.css?v=28">
+
 
     <link rel="stylesheet" type="text/css" href="templates/default/css/responsive.css?v=9">
 
@@ -137,27 +137,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </div> 
 </div>
-
-    <div class="overlay" id="overlay" onclick="goToHomepage()"></div>
-
-    <div class="popup" id="popup">
-        <h2>Khuyến mãi Server Hosting</h2>
-        <p>Giảm giá 45% khi đăng ký server hosting trong thời gian giới hạn!</p>
-
-        <!-- Thông tin cấu hình server -->
-        <div class="server-config">
-            <p><strong>Cấu hình server:</strong></p>
-            <p>CPU: 4 vCore Intel Xeon Platinum</p>
-            <p>RAM: 16 GB</p>
-            <p>SSD: 100 GB</p>
-        </div>
-
-        <!-- Thời gian đếm ngược -->
-        <div class="countdown" id="countdown">00:00:00</div>
-
-        <!-- Nút đăng ký ngay -->
-        <button onclick="registerNow()">Liên hệ ngay</button>
-    </div>
 
     <div class="wrapper">
          <div class="banner">
@@ -474,56 +453,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
 </script>
 
-    <script>
-        // Hàm mở pop-up
-        function openPopup() {
-            document.getElementById("popup").style.display = "block";
-            document.getElementById("overlay").style.display = "block";
-        }
-
-        // Hàm đóng pop-up
-        function closePopup() {
-            document.getElementById("popup").style.display = "none";
-            document.getElementById("overlay").style.display = "none";
-        }
-		
-        // Hàm điều hướng về trang chủ
-        function goToHomepage() {
-            window.location.href = "home.html"; // Chuyển hướng về trang chủ
-        }
-
-        // Hàm đăng ký ngay (điều hướng đến trang đăng ký)
-        function registerNow() {
-            window.location.href = "https://zalo.me/0367079359"; // Đổi URL thành trang đăng ký của bạn
-        }
-
-        // Thời gian kết thúc khuyến mãi
-        const endTime = new Date().getTime() + (23 * 55 * 60 * 1000); // Đếm ngược trong 24 giờ
-
-        // Hàm cập nhật thời gian đếm ngược
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const timeRemaining = endTime - now;
-
-            if (timeRemaining > 0) {
-                const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-
-                document.getElementById("countdown").innerText =
-                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            } else {
-                document.getElementById("countdown").innerText = "Hết thời gian!";
-            }
-        }
-
-        // Tự động mở pop-up sau khi tải trang
-        window.onload = function() {
-            setTimeout(openPopup, 2000); // Hiển thị pop-up sau 2 giây
-            setInterval(updateCountdown, 1000); // Cập nhật thời gian đếm ngược mỗi giây
-        };
-    </script>
-
+   
    <!-- JavaScript for Slider -->
     <script>
         let currentSlide = 0;
@@ -548,7 +478,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         // Tự động trượt sau 10 giây
         function startAutoSlide() {
-            autoSlideInterval = setInterval(nextSlide, 80000);
+            autoSlideInterval = setInterval(nextSlide, 10000);
         }
 
         function stopAutoSlide() {
